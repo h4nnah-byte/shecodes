@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bias Project - Process</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="console-wrapper">
+        <header class="scanlines">
+            <h1>AI Bias Investigation</h1>
+        </header>
+        <nav class="scanlines process-nav">
+            <a href="index.html" class="home-button">HOME</a>
+            <div class="road-map">
+                <div class="waypoint" data-stop="0">1</div>
+                <div class="road-segment"></div>
+                <div class="waypoint" data-stop="1">2</div>
+                <div class="road-segment"></div>
+                <div class="waypoint" data-stop="2">3</div>
+                <div class="road-segment"></div>
+                <div class="waypoint" data-stop="3">4</div>
+                <div class="road-segment"></div>
+                <div class="waypoint" data-stop="4">5</div>
+            </div>
+            <div class="progress-indicator">STEP 1 OF 5</div>
+        </nav>
+        <main>
+            <section id="step0" class="game-screen scanlines">
+                <h2>STEP 1: FIND A DATASET</h2>
+                <p class="main-point">Use Kaggle.com to find a dataset with a specific demographic difference:</p>
+                <p class="example-label">Example:</p>
+                <ul class="example-list">
+                    <li>Sex (male vs female)</li>
+                    <li>Race (white vs. non-white)</li>
+                    <li>Nationality (british born, non-british born)</li>
+                </ul>
+                <p class="main-point">This will help establish a correlation between your topic and the demographic.</p>
+                <p class="example-label">Example:</p>
+                <ul class="example-list">
+                    <li>Anemia is more common in non-white people than white people</li>
+                </ul>
+            </section>
+            <section id="step1" class="game-screen scanlines hidden">
+                <h2>STEP 2: ANALYSE THE DATA</h2>
+                <p class="main-point">Download the dataset and open a Google Colab to start analysing.</p>
+                <p class="main-point">Prompt Gemini to analyse your data and give results:</p>
+                <p class="example-label">Example prompt:</p>
+                <ul class="example-list">
+                    <li>"Show me the ratio of white people that have anemia to the ratio that don't, alongside the ratio for non-white people"</li>
+                </ul>
+                <p>Note: (You may use DeepSeek to assist in making prompts)</p>
+                <p class="main-point">This will hopefully show a clear correlation between race and condition.</p>
+            </section>
+            <section id="step2" class="game-screen scanlines hidden">
+                <h2>STEP 3: DIG DEEPER</h2>
+                <p class="main-point">Now, attempt to find biases. Are there factors affecting the correlation?</p>
+                <p class="example-label">Example question:</p>
+                <ul class="example-list">
+                    <li>Why are more non-white people struggling with anemia?</li>
+                </ul>
+                <p class="main-point">Ask for charts to prove some biases you predict may exist:</p>
+                <p class="example-label">Examples of biases to investigate:</p>
+                <ul class="example-list">
+                    <li>Anemia more common in Asia than Africa?</li>
+                    <li>Anemia more common in women?</li>
+                </ul>
+            </section>
+            <section id="step3" class="game-screen scanlines hidden">
+                <h2>STEP 4: BUILD YOUR AI SYSTEM</h2>
+                <p class="main-point">Use Google Colab and Gemini to generate models to analyse the data for you. This will help us see if the AI's analysis is consistent with the biases we found, or if it amplifies or minimises it.</p>
+                <p class="example-label">Example question to ask:</p>
+                <ul class="example-list">
+                    <li>Does it significantly favour women?</li>
+                </ul>
+                <p class="main-point">Ask it to make a Logistic Regression model and a Random Forest model. This will allow us to compare results of different models within our system.</p>
+                <p class="main-point">Ask Gemini for a Disparate Impact Analysis using these models. Choose a significant value e.g., 0.8. If the values are below 0.8, that is evidence to suggest that the AI model is biased.</p>
+            </section>
+            <section id="step4" class="game-screen scanlines hidden">
+                <h2>STEP 5: QUANTIFY A FINAL BIAS SCORE</h2>
+                <ul class="example-list">
+                    <li>Normalise the logistic regression feature importance between 0 and 1 (if negative, take value as 0)</li>
+                    <li>Normalise random forest and decision tree feature importance between 0 to 1 (easy as it is a magnitude)</li>
+                    <li>1-disparate ratio for each model</li>
+                    <li>Use gemini to find weighted average of each model (20% of chi-squared, 40% of feature importance, 40% of DIR)</li>
+                    <li>If under a third, low bias. if between a third and two thirds, its moderate bias. otherwise, high bias.</li>
+                    <li>Chi-squared components and DIR components were used to calculate original data bias score. Compare this against bias scores for each model.</li>
+                </ul>
+                <br>
+                <p class="main-point">Final question: Is your AI system biased?</p>
+            </section>
+        </main>
+        <div class="nav-controls scanlines">
+            <button id="prev-step" class="pixel-button arrow-button">← PREVIOUS</button>
+            <button id="next-step" class="pixel-button arrow-button">NEXT →</button>
+        </div>
+        <footer class="scanlines">
+            <p>&copy; shecodes 2026. All rights reserved.</p>
+        </footer>
+    </div>
+    <script src="process.js"></script>
+</body>
+</html>

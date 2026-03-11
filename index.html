@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Bias Project - shecodes</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="console-wrapper">
+        <header class="scanlines">
+            <h1>AI Bias Auditor</h1>
+        </header>
+        <nav class="scanlines">
+            <a href="#start-game" class="nav-button active">START GAME</a>
+            <a href="#about" class="nav-button">ABOUT</a>
+        </nav>
+        <main>
+            <section id="start-game" class="game-screen scanlines">
+                <h2>Welcome to the AI Bias Game!</h2>
+                <p>Click below to begin your adventure and uncover AI biases.</p>
+                <button class="pixel-button" onclick="location.href='process.html'">BEGIN ADVENTURE</button>
+            </section>
+            <section id="about" class="game-screen scanlines hidden">
+                <h2>AI Bias Auditor: Can Your AI Be Fair?</h2>
+                <p>The increasing reliance on AI for critical decisions, such as job candidate screening, risks automating and amplifying historical biases. Our project directly confronts this challenge: Can we truly measure and mitigate bias in AI systems?</p>
+
+                <h3>What We Explored:</h3>
+                <p>We trained and rigorously audited three machine learning models (Logistic Regression, Random Forest, and a Fairness-aware model) using real job placement data. Our auditing process involved statistical tests, Disparate Impact Ratio (DIR), and custom fairness metrics.</p>
+
+                <h3>A Striking Paradox:</h3>
+                <p>Our analysis uncovered a critical paradox: one model, despite attempting to favor women (indicated by a negative male coefficient), unexpectedly still exhibited discriminatory outcomes against them.</p>
+
+                <h3>Our Core Finding:</h3>
+                <p>High model accuracy does not equate to fairness. Our framework provides a clear methodology to quantify bias, underscoring its absolute necessity before deploying any AI system that shapes people's opportunities. Ensure your AI is not just smart, but equitable.</p>
+            </section>
+        </main>
+        <footer class="scanlines">
+            <p>&copy; shecodes 2026. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const sections = document.querySelectorAll('.game-screen');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Only handle hash links for the current page. If it's an external link, let the browser handle it.
+                    if (e.target.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = e.target.getAttribute('href').substring(1);
+
+                        navButtons.forEach(btn => btn.classList.remove('active'));
+                        e.target.classList.add('active');
+
+                        sections.forEach(section => {
+                            if (section.id === targetId) {
+                                section.classList.remove('hidden');
+                            } else {
+                                section.classList.add('hidden');
+                            }
+                        });
+                    }
+                    // For 'process.html' link, the browser will navigate directly.
+                });
+            });
+        });
+    </script>
+</body>
+</html>
